@@ -4,7 +4,7 @@ import sqlite3
 
 print("wa's goodie its startin to workin")
 print("Stared created the todo database")
-# tells us if the program is working or not until we see ()
+# tells us if the program is working or not until we see ("...")
 
 conn = sqlite3.connect('todo.db')
 # python will create a file called 'todo.db'
