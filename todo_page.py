@@ -1,6 +1,8 @@
 import sqlite3
 from bottle import route, run
 
+def execute_query():
+
 @route('/')
 def todo_list():
     conn = sqlite3.connect('todo.db')
