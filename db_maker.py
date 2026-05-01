@@ -13,9 +13,9 @@ conn.execute("CREATE TABLE todo (category VARCHAR(50), item VARCHAR(100), id INT
 # Creates the table with 3 fields
 # VARCHAR = variable character(s)
 
-conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'eggs')")
-conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'milk')")
-conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'flour')")
+conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'Eggs')")
+conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'Milk')")
+conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'Flour')")
 conn.execute("INSERT INTO todo(category, item) VALUES ('Activity', 'Clean house')")
 conn.execute("INSERT INTO todo(category, item) VALUES ('Activity', 'Wash the dishes')")
 # likewise, (x,y) -> (x,y) in the explanation; 'Shopping' as a category and 'eggs' as an item.

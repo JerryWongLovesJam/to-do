@@ -1,7 +1,7 @@
 """Creates a webserver for interacting with the todo database."""
 # Imports required modules
 import sqlite3
-from bottle import route, run
+from bottle import route, run, request, redirect
 
 def execute_query(query, params=(), fetch=False):
     """Handles database queries and interactions."""
@@ -21,8 +21,7 @@ def todo_list():
         row_id, category, item = row
 
         table_rows += f"""
-        # html language
-        <tr>l   
+        <tr>   
             <td>{category}</td>
             <td>{item}</td>
             <td>    
@@ -42,6 +41,11 @@ def todo_list():
         </head>
         <body>
             <h1>To-do list</h1>
+            <form action="/new", method="POST">
+                <input type="text" name="newcat" placeholder="Category" required>
+                <input type="text" name="item" placeholder="New item" required>
+                <button tpe="submit">Add</button>
+            </form>
             <table>
                 <tr>
                     <th>Category</th>
@@ -54,6 +58,14 @@ def todo_list():
         </html>
         """
 
-        return html
+    return html
+
+@route('/delete', method="POST")
+def delete_item():
+    delid = request.forms.get("delitem")
+    if delid:
+        execute_query("DELETE FROM todo WHERE id = ?", (delid,))
+    redirect('/')
+
 # Starts the webserver
 run(host = 'localhost', port = 8080)
