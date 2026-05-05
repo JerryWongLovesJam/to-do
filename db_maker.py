@@ -18,6 +18,7 @@ conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'Milk')")
 conn.execute("INSERT INTO todo(category, item) VALUES ('Shopping', 'Flour')")
 conn.execute("INSERT INTO todo(category, item) VALUES ('Activity', 'Clean house')")
 conn.execute("INSERT INTO todo(category, item) VALUES ('Activity', 'Wash the dishes')")
+
 # likewise, (x,y) -> (x,y) in the explanation; 'Shopping' as a category and 'eggs' as an item.
 # creates 5 records to the table
 

@@ -1,13 +1,13 @@
-"""Creates a webserver for interacting with the todo database."""
-# Imports required modules
+"""Creates a webserver for interacting with the todo database"""
+#Imports required modules
 import sqlite3
 from bottle import route, run, request, redirect
 
 def execute_query(query, params=(), fetch=False):
-    """Handles database queries and interactions."""
-    # Connects to the database
+    """Handles database interactions"""
+    #Connects to the database
     with sqlite3.connect('todo.db') as conn:
-        # Executes SQL queru and returns result
+        #Executes SQL query and returns result
         cur = conn.execute(query, params)
         return cur.fetchall() if fetch else None
 
@@ -19,13 +19,12 @@ def todo_list():
     table_rows = ""
     for row in rows:
         row_id, category, item = row
-
         table_rows += f"""
-        <tr>   
+        <tr>
             <td>{category}</td>
             <td>{item}</td>
-            <td>    
-                <form action='/delete' method='POST'>
+            <td>
+                <form action='/delete', method='POST'>
                     <input type='hidden' name=delitem value='{row_id}'>
                     <button type='submit'>Delete</button>
                 </form>
@@ -44,7 +43,7 @@ def todo_list():
             <form action="/new", method="POST">
                 <input type="text" name="newcat" placeholder="Category" required>
                 <input type="text" name="item" placeholder="New item" required>
-                <button tpe="submit">Add</button>
+                <button type="submit">Add</button>
             </form>
             <table>
                 <tr>
@@ -60,12 +59,26 @@ def todo_list():
 
     return html
 
-@route('/delete', method="POST")
+@route('/delete', method='POST')
 def delete_item():
+    """Used for deleting items from the to do list"""
+    # Gets the ID pf the item to delete
     delid = request.forms.get("delitem")
+    # Checks if 'delid' is valid
     if delid:
+        # Deletes the record
         execute_query("DELETE FROM todo WHERE id = ?", (delid,))
+        # Redirects to the home page
     redirect('/')
 
-# Starts the webserver
+@route('/new', method='POST')
+def new_item():
+    """Used for adding new items to the to do list"""
+    newcat, item = request.forms.get("newcat"), request.forms.get("item")
+    if newcat and item:
+        execute_query("INSERT INTO todo (category, item) VALUES (?, ?)", (newcat, item))
+    redirect('/')
+
+
+#Starts the webserver
 run(host = 'localhost', port = 8080)
