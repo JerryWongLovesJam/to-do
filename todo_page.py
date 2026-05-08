@@ -18,7 +18,7 @@ def todo_list():
 
     table_rows = ""
     for row in rows:
-        row_id, category, item = row
+        row_id, category, item, checkbox = row
         table_rows += f"""
         <tr>
             <td>{category}</td>
@@ -27,6 +27,11 @@ def todo_list():
                 <form action='/delete', method='POST'>
                     <input type='hidden' name=delitem value='{row_id}'>
                     <button type='submit'>Delete</button>
+                </form>
+                <form action="/new", method="POST">
+                    <input type="text" name="newcat" placeholder="Category" required>
+                    <input type="text" name="item" placeholder="New item" required>
+                    <button type="submit">Add</button>
                 </form>
             </td>
         </tr>
